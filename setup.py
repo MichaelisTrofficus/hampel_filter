@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hampel",
-    version="0.0.2",
+    version="0.0.3",
     author="MTrofficus",
     author_email="miguel.otero.pedrido.1993@gmail.com",
     description="Python implementation of the Hampel Filter",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/MichaelisTrofficus/hampel_filter",
     py_modules=["hampel"],
     package_dir={"": "src"},
     classifiers=[
