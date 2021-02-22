@@ -36,4 +36,3 @@ def test_negative_sigma(ts_data):
 def test_str_sigma(ts_data):
     with pytest.raises(ValueError):
         hampel(ts_data, 1, "a")
-

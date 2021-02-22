@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def median_absolute_deviation(x):
@@ -11,14 +12,16 @@ def median_absolute_deviation(x):
     return np.median(np.abs(x - np.median(x)))
 
 
-def hampel(ts, window_size=5, n=3):
+def hampel(ts, window_size=5, n=3, imputation=False):
 
     """
     Median absolute deviation (MAD) outlier in Time Series
     :param ts: a pandas Series object representing the timeseries
     :param window_size: total window size will be computed as 2*window_size + 1
     :param n: threshold, default is 3 (Pearson's rule)
-    :return: Returns the corrected timeserie
+    :param imputation: If set to False, then the algorithm will be used for outlier detection.
+        If set to True, then the algorithm will also imput the outliers with the rolling median.
+    :return: Returns the outlier indices if imputation=False and the corrected timeseries if imputation=True
     """
 
     if type(ts) != pd.Series:
@@ -49,6 +52,9 @@ def hampel(ts, window_size=5, n=3):
 
     outlier_indices = list(
         np.array(np.where(np.abs(ts_cleaned - rolling_median) >= (n * rolling_sigma))).flatten())
-    ts_cleaned[outlier_indices] = rolling_median[outlier_indices]
 
-    return ts_cleaned
+    if imputation:
+        ts_cleaned[outlier_indices] = rolling_median[outlier_indices]
+        return ts_cleaned
+
+    return outlier_indices

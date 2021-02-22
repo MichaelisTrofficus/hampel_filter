@@ -18,6 +18,7 @@ pip install hampel
 
 ```
 hampel(ts, window_size=5, n=3)
+hampel(ts, window_size=5, n=3, imputation=True)
 ```
 
 # Arguments
@@ -25,7 +26,8 @@ hampel(ts, window_size=5, n=3)
 - **ts** - A pandas Series object representing the timeseries 
 - **window_size** -  Total window size will be computed as 2*window_size + 1
 - **n** - Threshold, default is 3 (Pearson's rule)
-
+- **imputation** - If set to False, then the algorithm will be used for outlier detection.
+        If set to True, then the algorithm will also imput the outliers with the rolling median.
 
 # Code Example
 
@@ -35,10 +37,16 @@ import pandas as pd
 from hampel import hampel
 
 ts = pd.Series([1, 2, 1 , 1 , 1, 2, 13, 2, 1, 2, 15, 1, 2])
-ts_cleaned = hampel(ts, window_size=5, n=3)
+
+# Just outlier detection
+outlier_indices = hampel(ts, window_size=5, n=3)
+print("Outlier Indices: ", outlier_indices)
+
+# Outlier Imputation with rolling median
+ts_imputation = hampel(ts, window_size=5, n=3, imputation=True)
 
 ts.plot(style="k-")
-ts_cleaned.plot(style="g-")
+ts_imputation.plot(style="g-")
 plt.show()
 ```
 
