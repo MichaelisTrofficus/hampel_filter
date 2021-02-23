@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hampel",
-    version="0.0.4",
+    version="0.0.5",
     author="MTrofficus",
     author_email="miguel.otero.pedrido.1993@gmail.com",
     description="Python implementation of the Hampel Filter",
