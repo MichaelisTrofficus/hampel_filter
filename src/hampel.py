@@ -1,30 +1,12 @@
 import numpy as np
 import pandas as pd
+from c_hampel import _hampel
 
 
-def median_absolute_deviation(x):
-    """
-    Returns the median absolute deviation from the window's median
-    :param x: Values in the window
-    :return: MAD
-    """
-    return np.median(np.abs(x - np.median(x)))
+def hampel(data, window_size=3, n_sigma=3.0):
 
-
-def hampel(ts, window_size=5, n=3, imputation=False):
-
-    """
-    Median absolute deviation (MAD) outlier in Time Series
-    :param ts: a pandas Series object representing the timeseries
-    :param window_size: total window size will be computed as 2*window_size + 1
-    :param n: threshold, default is 3 (Pearson's rule)
-    :param imputation: If set to False, then the algorithm will be used for outlier detection.
-        If set to True, then the algorithm will also imput the outliers with the rolling median.
-    :return: Returns the outlier indices if imputation=False and the corrected timeseries if imputation=True
-    """
-
-    if type(ts) != pd.Series:
-        raise ValueError("Timeserie object must be of tyme pandas.Series.")
+    if not (isinstance(data, pd.Series) or isinstance(data, np.ndarray)):
+        raise ValueError("Input data must be a pandas.Series or a numpy.ndarray")
 
     if type(window_size) != int:
         raise ValueError("Window size must be of type integer.")
@@ -32,28 +14,13 @@ def hampel(ts, window_size=5, n=3, imputation=False):
         if window_size <= 0:
             raise ValueError("Window size must be more than 0.")
 
-    if type(n) != int:
-        raise ValueError("Window size must be of type integer.")
+    if type(n_sigma) != float:
+        raise ValueError("Threshold must be of type float.")
     else:
-        if n < 0:
+        if n_sigma < 0:
             raise ValueError("Window size must be equal or more than 0.")
 
-    # Copy the Series object. This will be the cleaned timeserie
-    ts_cleaned = ts.copy()
+    if isinstance(data, pd.Series):
+        data = data.copy().to_numpy()
 
-    # Constant scale factor, which depends on the distribution
-    # In this case, we assume normal distribution
-    k = 1.4826
-
-    rolling_ts = ts_cleaned.rolling(window_size*2, center=True)
-    rolling_median = rolling_ts.median().fillna(method='bfill').fillna(method='ffill')
-    rolling_sigma = k*(rolling_ts.apply(median_absolute_deviation).fillna(method='bfill').fillna(method='ffill'))
-
-    outlier_indices = list(
-        np.array(np.where(np.abs(ts_cleaned - rolling_median) >= (n * rolling_sigma))).flatten())
-
-    if imputation:
-        ts_cleaned[outlier_indices] = rolling_median[outlier_indices]
-        return ts_cleaned
-
-    return outlier_indices
+    return _hampel(np.asarray(data, dtype=np.float32), window_size, n_sigma)
