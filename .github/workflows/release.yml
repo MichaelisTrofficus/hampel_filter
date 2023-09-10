@@ -20,7 +20,7 @@ jobs:
         python-version: 3.9.16  # Use your preferred Python version
 
     - name: Install Twine
-      run: pip install twine cython numpy
+      run: pip install twine cython numpy wheel
 
     - name: Build and upload
       env:
