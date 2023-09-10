@@ -57,9 +57,10 @@ def test_hampel_filter_two_points():
 
 def test_hampel_filter_three_points():
     # Test with three data points, should return the same points
-    data = np.array([1.0, 2.0, 3.0])
+    data = np.array([2.0, 25.0, 6.0])
+    expected_data = np.array([2.0, 6.0, 6.0])
     filtered_data = hampel(data)
-    assert np.allclose(data, filtered_data)
+    assert np.allclose(expected_data, filtered_data)
 
 
 def test_hampel_filter_three_points_with_outliers():
@@ -88,3 +89,38 @@ def test_hampel_filter_dataframe(sample_dataframe):
 
     for column in sample_dataframe.columns:
         assert np.allclose(filtered_dataframe[column], expected_filtered_values[column])
+
+
+@pytest.fixture
+def ts_data():
+    return pd.Series([1, 2, 1, 1, 40, 2, 1, 1, 30, 40, 1, 1, 2, 1])
+
+
+def test_str_ts():
+    with pytest.raises(ValueError):
+        hampel("a", -1, 3)
+
+
+def test_negative_window_size(ts_data):
+    with pytest.raises(ValueError):
+        hampel(ts_data, -1, 3)
+
+
+def test_zero_window_size(ts_data):
+    with pytest.raises(ValueError):
+        hampel(ts_data, 0, 3)
+
+
+def test_str_window_key(ts_data):
+    with pytest.raises(ValueError):
+        hampel(ts_data, "a", 3)
+
+
+def test_negative_sigma(ts_data):
+    with pytest.raises(ValueError):
+        hampel(ts_data, 3, -1)
+
+
+def test_str_sigma(ts_data):
+    with pytest.raises(ValueError):
+        hampel(ts_data, 1, "a")

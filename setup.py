@@ -20,7 +20,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    ext_modules=cythonize("src/hampel_filter.pyx"),
+    ext_modules=cythonize("src/_hampel.pyx"),
     install_requires=[
         "numpy",
         "cython"
