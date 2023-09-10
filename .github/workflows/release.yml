@@ -20,7 +20,7 @@ jobs:
         python-version: 3.9.16  # Use your preferred Python version
 
     - name: Install Twine
-      run: pip install twine cython numpy wheel
+      run: pip install twine cython numpy wheel auditwheel
 
     - name: Build and upload
       env:
@@ -29,6 +29,9 @@ jobs:
       if: github.ref == 'refs/heads/develop'
       run: |
         python setup.py build_ext sdist bdist_wheel
+        auditwheel repair dist/*.whl
+        rm dist/*.whl
+        mv wheelhouse/* dist        
         twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
     - name: Build and upload
