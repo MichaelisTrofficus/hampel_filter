@@ -1,11 +1,12 @@
 import cython
 import numpy as np
+cimport numpy as np
 
 
-@cython.boundscheck(False)
+@cython.boundscheck(True)
 @cython.wraparound(False)
 @cython.cdivision(True)
-def hampel_filter(float[::1] data, int window_size=5, float n_sigma=3.0):
+def hampel_filter(np.ndarray[np.float32_t, ndim=1] data, int window_size=5, float n_sigma=3.0):
     """
     Applies the Hampel filter to a 1-dimensional numpy array for outlier detection.
 
@@ -21,15 +22,15 @@ def hampel_filter(float[::1] data, int window_size=5, float n_sigma=3.0):
     """
     cdef:
         int i, j, window_length
-        float[::1] window
+        np.ndarray[np.float32_t, ndim=1] window
         float median, median_absolute_deviation, threshold
 
     cdef int data_len = data.shape[0]
-    cdef float[::1] filtered_data = data.copy()
+    cdef np.ndarray[np.float32_t, ndim=1] filtered_data = data.copy()
     cdef int half_window = window_size // 2
 
     for i in range(half_window, data_len - half_window):
-        window = data[i - half_window: i + half_window + 1]
+        window = data[i - half_window: i + half_window + 1].copy()
         window_length = len(window)
         median = np.median(window)
 

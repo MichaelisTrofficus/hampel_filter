@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
-from _hampel import _hampel
+from _hampel import hampel_filter
 
 
 def hampel(data, window_size=3, n_sigma=3.0):
 
     if not (isinstance(data, pd.Series) or isinstance(data, np.ndarray)):
-        raise ValueError("Input data must be a  pandas.Series or a numpy.ndarray")
+        raise ValueError("Input data must be a pandas.Series or a numpy.ndarray")
 
     if type(window_size) != int:
         raise ValueError("Window size must be of type integer.")
@@ -23,4 +23,4 @@ def hampel(data, window_size=3, n_sigma=3.0):
     if isinstance(data, pd.Series):
         data = data.copy().to_numpy()
 
-    return _hampel(data, window_size, n_sigma)
+    return hampel_filter(np.asarray(data, dtype=np.float32), window_size, n_sigma)
