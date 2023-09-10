@@ -1,6 +1,7 @@
-import pytest
 import pandas as pd
-from src.hampel import hampel
+import pytest
+
+from hampel import hampel
 
 
 @pytest.fixture
