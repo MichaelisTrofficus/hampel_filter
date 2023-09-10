@@ -30,6 +30,6 @@ setuptools.setup(
             "pytest>=6.0.2"
         ]
     },
-    python_requires='>=3.5',
+    python_requires='>=3.8',
     include_dirs=[np.get_include()],
 )

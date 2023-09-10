@@ -3,7 +3,7 @@ import numpy as np
 cimport numpy as np
 
 
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
 def _hampel(np.ndarray[np.float32_t, ndim=1] data, int window_size=5, float n_sigma=3.0):
