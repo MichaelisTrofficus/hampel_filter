@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from _hampel import hampel_filter
+from c_hampel import _hampel
 
 
 def hampel(data, window_size=3, n_sigma=3.0):
@@ -23,4 +23,4 @@ def hampel(data, window_size=3, n_sigma=3.0):
     if isinstance(data, pd.Series):
         data = data.copy().to_numpy()
 
-    return hampel_filter(np.asarray(data, dtype=np.float32), window_size, n_sigma)
+    return _hampel(np.asarray(data, dtype=np.float32), window_size, n_sigma)
