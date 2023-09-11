@@ -41,4 +41,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         python setup.py build_ext sdist bdist_wheel
+        auditwheel repair dist/*.whl
+        rm dist/*.whl
+        mv wheelhouse/* dist   
         twine upload dist/*
