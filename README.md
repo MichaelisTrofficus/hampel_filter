@@ -26,10 +26,10 @@ hampel(ts, window_size=5, n=3, imputation=True)
 - **ts** - A pandas Series object representing the timeseries 
 - **window_size** -  Total window size will be computed as 2*window_size + 1
 - **n** - Threshold, default is 3 (Pearson's rule)
-- **imputation** - If set to False, then the algorithm will be used for outlier detection.
-        If set to True, then the algorithm will also imput the outliers with the rolling median.
 
-# Code Example
+
+# Code Example 
+
 
 ```
 import matplotlib.pyplot as plt
