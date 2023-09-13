@@ -2,7 +2,7 @@ from typing import Union
 
 import numpy as np
 import pandas as pd
-from c_hampel import _hampel
+from hampel.c_hampel import _hampel
 
 
 def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: float = 3.0):
