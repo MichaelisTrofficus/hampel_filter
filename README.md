@@ -1,7 +1,6 @@
 # Hampel
 
-![usage_visualization.png](img%2Fusage_visualization.png)
-
+> **Warning:** Starting from version 1.0.1, there are **breaking changes** in this library. Please review the [Usage](#usage) section for details and update your code accordingly.
 
 The Hampel filter is generally used to detect anomalies in data with a timeseries structure.
 It basically consists of a sliding window of a parameterizable size. 
@@ -9,6 +8,8 @@ For each window, each observation will be compared with the Median Absolute Devi
 The observation will be considered an outlier in the case in which it exceeds the MAD by n times (the parameter n is also parameterizable).
 
 For more details, see the [Related Links](#related-links) section.
+
+![usage_visualization.png](img%2Fusage_visualization.png)
 
 ## Table of Contents
 - [Installation](#installation)
