@@ -2,11 +2,13 @@ from typing import Union
 
 import numpy as np
 import pandas as pd
-
-from hampel.result import Result
 from hampel.extension.hampel import hampel as hampel_extension
 
+from hampel.decorator import type_check_decorator
+from hampel.result import Result
 
+
+@type_check_decorator
 def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: float = 3.0) -> Result:
     """
     Apply the Hampel filter for outlier detection to a pandas.Series or numpy.ndarray.
@@ -38,31 +40,18 @@ def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: fl
     Note:
         - If the input data is a pandas.Series, it will be converted to a numpy.ndarray for processing.
     """
-
-    if not (isinstance(data, pd.Series) or isinstance(data, np.ndarray)):
-        raise ValueError("Input data must be a pandas.Series or a numpy.ndarray")
-
-    if type(window_size) != int:
-        raise ValueError("Window size must be of type integer.")
-    else:
-        if window_size <= 0:
-            raise ValueError("Window size must be more than 0.")
-
-    if type(n_sigma) != float:
-        raise ValueError("Threshold must be of type float.")
-    else:
-        if n_sigma < 0:
-            raise ValueError("Window size must be equal or more than 0.")
+    is_pd_series = False
 
     if isinstance(data, pd.Series):
         data = data.copy().to_numpy()
+        is_pd_series = True
 
     result = hampel_extension(np.asarray(data, dtype=np.float32), window_size, n_sigma)
+
     return Result(
-        filtered_data=result[0],
+        filtered_data=result[0] if not is_pd_series else pd.Series(result[0]),
         outlier_indices=result[1],
         medians=result[2],
         median_absolute_deviations=result[3],
         thresholds=result[4],
     )
-
