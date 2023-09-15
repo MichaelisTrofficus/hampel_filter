@@ -14,6 +14,7 @@ For more details, see the [Related Links](#related-links) section.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Parameters](#parameters)
+- [Testing](#testing)
 - [License](#license)
 - [Contributing](#contributing)
 - [Related Links](#related-links)
@@ -27,9 +28,10 @@ To use the Hampel filter in your Python project, you can install it via pip:
 pip install hampel
 ```
 
+
 ## Usage
 
-Here's how you can use the Hampel filter in your Python code:
+Here's a simple example of how to use the Hampel filter:
 
 ```python
 import pandas as pd
@@ -39,12 +41,40 @@ from hampel import hampel
 data = pd.Series([1.0, 2.0, 3.0, 100.0, 4.0, 5.0, 6.0])
 
 # Apply the Hampel filter
-filtered_data = hampel(data, window_size=3, n_sigma=3.0)
+result = hampel(data, window_size=3, n_sigma=3.0)
 
-print(filtered_data)
+print(result.filtered_data)
 ```
 
-### Applying the Hampel Filter to a Pandas DataFrame
+When you apply the Hampel filter, it returns a `Result` object with the following attributes:
+
+
+- `filtered_data`: The data with outliers replaced.
+
+
+- `outlier_indices`: Indices of the detected outliers.
+
+
+- `medians`: Median values within the sliding window.
+
+
+- `median_absolute_deviations`: Median Absolute Deviation (MAD) values within the sliding window.
+
+
+- `thresholds`: Threshold values for outlier detection.
+
+
+You can access these attributes as follows:
+
+```python
+result = hampel(data, window_size=3, n_sigma=3.0)
+
+filtered_data = result.filtered_data
+outlier_indices = result.outlier_indices
+medians = result.medians
+mad_values = result.median_absolute_deviations
+thresholds = result.thresholds
+```
 
 If you want to directly apply hampel filter to multiple columns in a  `pandas.Dataframe`,
 follow this code:
@@ -58,7 +88,8 @@ df = pd.DataFrame({
     'B': [7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0]
 })
 
-filtered_df = df.apply(hampel, axis=0)
+# We are just getting the filtered data in this case
+filtered_df = df.apply(lambda x: hampel(x).filtered_data, axis=0)
 
 print(df)
 ```
@@ -68,6 +99,14 @@ print(df)
 * `data`: The input 1-dimensional data to be filtered (pandas.Series or numpy.ndarray).
 * `window_size` (optional): The size of the moving window for outlier detection (default is 5).
 * `n_sigma` (optional): The number of standard deviations for outlier detection (default is 3.0).
+
+## Testing
+
+If you want to run the tests, simple run:
+
+```
+make test
+```
 
 ## License
 

@@ -14,8 +14,8 @@ build:
 	python setup.py build_ext --inplace
 
 # Run tests (build extensions if not built)
-test: build
-	pytest $(TESTS_DIR)
+test: clean build
+	pytest
 
 # Clean build artifacts
 clean:
