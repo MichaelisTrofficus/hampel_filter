@@ -36,8 +36,8 @@ ext = ".pyx" if USE_CYTHON else ".c"
 
 extensions = [
     Extension(
-        "hampel.c_hampel",
-        ["src/hampel/c_hampel" + ext],
+        "hampel.extension.hampel",
+        ["src/hampel/extension/hampel" + ext],
         include_dirs=[np.get_include()],
     )
 ]

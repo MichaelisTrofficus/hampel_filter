@@ -2,7 +2,7 @@ from typing import Union
 
 import numpy as np
 import pandas as pd
-from hampel.c_hampel import _hampel
+from hampel.extension.hampel import hampel as hampel_extension
 
 
 def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: float = 3.0):
@@ -55,4 +55,4 @@ def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: fl
     if isinstance(data, pd.Series):
         data = data.copy().to_numpy()
 
-    return _hampel(np.asarray(data, dtype=np.float32), window_size, n_sigma)
+    return hampel_extension(np.asarray(data, dtype=np.float32), window_size, n_sigma)

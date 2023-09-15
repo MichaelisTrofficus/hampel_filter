@@ -1,7 +1,7 @@
 # Makefile for building Cython extensions and running tests
 
 # Variables
-CYTHON_MODULE = src/hampel/c_hampel
+CYTHON_MODULE = src/hampel/extension/hampel
 TESTS_DIR = tests
 
 .PHONY: all build test clean
