@@ -2,10 +2,12 @@ from typing import Union
 
 import numpy as np
 import pandas as pd
+
+from hampel.result import Result
 from hampel.extension.hampel import hampel as hampel_extension
 
 
-def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: float = 3.0):
+def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: float = 3.0) -> Result:
     """
     Apply the Hampel filter for outlier detection to a pandas.Series or numpy.ndarray.
 
@@ -55,4 +57,12 @@ def hampel(data: Union[np.ndarray, pd.Series], window_size: int = 5, n_sigma: fl
     if isinstance(data, pd.Series):
         data = data.copy().to_numpy()
 
-    return hampel_extension(np.asarray(data, dtype=np.float32), window_size, n_sigma)
+    result = hampel_extension(np.asarray(data, dtype=np.float32), window_size, n_sigma)
+    return Result(
+        filtered_data=result[0],
+        outlier_indices=result[1],
+        medians=result[2],
+        median_absolute_deviations=result[3],
+        thresholds=result[4],
+    )
+
