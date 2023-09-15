@@ -1,6 +1,6 @@
 # Hampel
 
-![hampel_usage.png](img%2Fhampel_usage.png)
+![usage_visualization.png](img%2Fusage_visualization.png)
 
 
 The Hampel filter is generally used to detect anomalies in data with a timeseries structure.
