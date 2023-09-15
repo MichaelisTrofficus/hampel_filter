@@ -6,7 +6,7 @@ cimport numpy as np
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-def _hampel(np.ndarray[np.float32_t, ndim=1] data, int window_size, float n_sigma):
+def hampel(np.ndarray[np.float32_t, ndim=1] data, int window_size, float n_sigma):
     """
     Applies the Hampel filter to a 1-dimensional numpy array for outlier detection.
 

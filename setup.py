@@ -1,7 +1,7 @@
-from Cython.Build import cythonize
-from setuptools import dist
 from os import path
 from setuptools import find_packages, setup, Extension
+
+from setuptools import dist
 
 dist.Distribution().fetch_build_eggs(["numpy>=1.17.3"])
 
@@ -18,7 +18,7 @@ except ImportError:
 else:
     USE_CYTHON = True
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 
 here = path.abspath(path.dirname(__file__))
 
@@ -30,15 +30,14 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 with open(path.join(here, "requirements.txt"), encoding="utf-8") as f:
     install_requires = [line.strip() for line in f.read().split("\n")]
 
-
 cmdclass = {}
 
 ext = ".pyx" if USE_CYTHON else ".c"
 
 extensions = [
     Extension(
-        "src.c_hampel",
-        ["src/c_hampel" + ext],
+        "hampel.extension.hampel",
+        ["src/hampel/extension/hampel" + ext],
         include_dirs=[np.get_include()],
     )
 ]
@@ -70,7 +69,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages=find_packages(exclude=["tests*"]),
+    packages=find_packages(where="src", exclude=["tests*"]),
+    package_dir={"": "src"},
     python_requires='>=3.8',
     include_package_data=True,
     ext_modules=extensions,
