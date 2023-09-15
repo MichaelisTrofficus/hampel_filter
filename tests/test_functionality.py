@@ -22,7 +22,7 @@ def test_hampel_filter_no_outliers():
 def test_hampel_filter_with_outliers():
     # Test with outliers, they should be replaced by medians within the window
     data = np.array([1.0, 2.0, 3.0, 100.0, 4.0, 5.0, 6.0])
-    filtered_data = hampel(data, window_size=3, n_sigma=3.0).filtered_data
+    filtered_data = hampel(data, window_size=5, n_sigma=3.0).filtered_data
     expected_result = np.array([1.0, 2.0, 3.0, 4.0, 4.0, 5.0, 6.0])
     assert np.allclose(expected_result, filtered_data)
 
@@ -37,7 +37,7 @@ def test_hampel_filter_large_window():
 def test_hampel_filter_custom_threshold():
     # Test with a custom threshold, should replace the outlier
     data = np.array([1.0, 2.0, 3.0, 100.0, 4.0, 5.0, 6.0])
-    filtered_data = hampel(data, window_size=3, n_sigma=5.0).filtered_data
+    filtered_data = hampel(data, window_size=5, n_sigma=5.0).filtered_data
     expected_result = np.array([1.0, 2.0, 3.0, 4.0, 4.0, 5.0, 6.0])
     assert np.allclose(expected_result, filtered_data)
 

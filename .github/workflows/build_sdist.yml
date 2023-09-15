@@ -40,7 +40,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: the-sdist-${{ matrix.use-oldest-numpy }}
-        path: dist/hampel-1.0.3.tar.gz
+        path: dist/hampel-1.0.0.tar.gz
 
   install-and-test:
 
@@ -67,7 +67,7 @@ jobs:
         set -x
         
         pip install wheel
-        pip install hampel-1.0.3.tar.gz -v --no-use-pep517
+        pip install hampel-1.0.0.tar.gz -v --no-use-pep517
 
     - name: Pip freeze
       run: |
