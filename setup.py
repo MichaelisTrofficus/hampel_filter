@@ -1,14 +1,7 @@
 from os import path
+
+import numpy as np
 from setuptools import find_packages, setup, Extension
-
-from setuptools import dist
-
-dist.Distribution().fetch_build_eggs(["numpy>=1.17.3"])
-
-try:
-    import numpy as np
-except ImportError:
-    exit("Please install numpy>=1.17.3 first.")
 
 try:
     from Cython.Build import cythonize
@@ -71,7 +64,7 @@ setup(
     ],
     packages=find_packages(where="src", exclude=["tests*"]),
     package_dir={"": "src"},
-    python_requires='>=3.9',
+    python_requires='>=3.8',
     include_package_data=True,
     ext_modules=extensions,
     cmdclass=cmdclass,

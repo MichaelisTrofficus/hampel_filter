@@ -1,5 +1,6 @@
 include README.md
-include LICENSE.md
+include LICENSE
 include requirements.txt
 recursive-include examples *
-recursive-include src *.c *.pyx
+include src/hampel/extension/hampel.c
+include src/hampel/extension/hampel.pyx
