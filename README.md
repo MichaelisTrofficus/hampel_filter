@@ -1,6 +1,6 @@
 # Hampel
 
-> **Warning:** Starting from version 1.0.1, there are **breaking changes** in this library. Please review the [Usage](#usage) section for details and update your code accordingly.
+> **Warning:** Starting from version 1.0.2, there are **breaking changes** in this library. Please review the [Usage](#usage) section for details and update your code accordingly.
 
 The Hampel filter is generally used to detect anomalies in data with a timeseries structure.
 It basically consists of a sliding window of a parameterizable size. 
