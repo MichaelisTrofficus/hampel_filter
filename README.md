@@ -9,6 +9,9 @@ The observation will be considered an outlier in the case in which it exceeds th
 
 For more details, see the [Related Links](#related-links) section.
 
+You can also take a look at my [Medium post](https://medium.com/@miguel.otero.pedrido.1993/hampel-filter-with-python-17db1d265375) about this library!!  😁😁😁 
+
+
 ![usage_visualization.png](img%2Fusage_visualization.png)
 
 ## Table of Contents
@@ -118,6 +121,8 @@ See the [LICENSE](LICENSE) file for details.
 Contributions are welcome! Feel free to open issues, submit pull requests, or suggest improvements.
 
 ## Related Links
+
+https://medium.com/@miguel.otero.pedrido.1993/hampel-filter-with-python-17db1d265375
 
 https://medium.com/wwblog/clean-up-your-time-series-data-with-a-hampel-filter-58b0bb3ebb04
 
