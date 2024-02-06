@@ -40,8 +40,9 @@ def hampel(np.ndarray[np.float32_t, ndim=1] data, int window_size, float n_sigma
 
     cdef int num_outliers = 0
 
-    for i in range(half_window, data_len - half_window):
-        window = data[i - half_window: i + half_window + 1].copy()
+#    for i in range(half_window, data_len - half_window):
+    for i in range(0, data_len - window_size):
+        window = data[i: i + window_size].copy()
         window_length = len(window)
         median = np.median(window)
 
